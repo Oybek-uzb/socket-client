@@ -5,7 +5,18 @@ socket.emit("connected", "from client", data => {
     console.log(data);
 })
 
-socket.on("connected", data => {
+socket.on("conn-checked", data => {
+    let decision = Math.round(Math.random())
+    console.log("decision", decision);
     connMsg.innerHTML = "Connecting to server done."
-    console.log(socket, data);
+
+    if (decision) {
+        emitIfDecided()
+    }
 })
+
+function emitIfDecided() {
+    socket.emit("random", "selected sending", data => {
+        console.log(data);
+    })
+}
